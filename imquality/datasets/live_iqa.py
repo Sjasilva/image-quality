@@ -3,9 +3,9 @@ import os.path
 import tensorflow as tf
 import tensorflow_datasets.public_api as tfds
 
-from . import CHECKSUMS_PATH
+# from . import CHECKSUMS_PATH
 
-tfds.download.add_checksums_dir(CHECKSUMS_PATH)
+# tfds.download.add_checksums_dir(CHECKSUMS_PATH)
 
 CITATION = r"""
 @article{wang2004image,
@@ -78,32 +78,33 @@ class LiveIQA(tfds.core.GeneratorBasedBuilder):
         )
 
     def _split_generators(self, manager):
-        live_url = "https://data.ocampor.ai/image-quality/live.zip"
-        extracted_path = manager.download_and_extract([live_url])
-        images_path = os.path.join(extracted_path[0], "live")
-
+        # live_url = "https://data.ocampor.ai/image-quality/live.zip"
+        # extracted_path = manager.download_and_extract([live_url])
+        # images_path = os.path.join(extracted_path[0], "live")
+        images_path = '/content/drive/My Drive/Mestrado/Live_IQA_release2'
         return [
             tfds.core.SplitGenerator(
                 name=tfds.Split.TRAIN,
                 gen_kwargs={
                     "images_path": images_path,
-                    "labels": os.path.join(images_path, "dmos.csv")
+                    "labels": os.path.join(images_path, "my_dmos_norm.csv")
                 },
             )
         ]
-
+    # import scipy.io as sio
+    # test = sio.loadmat('test.mat')
     def _generate_examples(self, images_path, labels):
         with tf.io.gfile.GFile(labels) as f:
             lines = f.readlines()
 
         for image_id, line in enumerate(lines[1:]):
-            values = line.split(",")
+            values = line.split(";")
             yield image_id, {
                 "distortion": values[0],
                 "index": values[1],
                 "distorted_image": os.path.join(images_path, values[2]),
-                "reference_image": os.path.join(images_path, values[3]),
-                "dmos": values[4],
+                "reference_image": os.path.join(images_path + '/refimgs', values[3]),
+                "dmos": values[8],
                 "dmos_realigned": values[5],
                 "dmos_realigned_std": values[6],
             }
