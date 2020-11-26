@@ -81,7 +81,7 @@ class LiveIQA(tfds.core.GeneratorBasedBuilder):
         # live_url = "https://data.ocampor.ai/image-quality/live.zip"
         # extracted_path = manager.download_and_extract([live_url])
         # images_path = os.path.join(extracted_path[0], "live")
-        images_path = '/content/drive/My Drive/Mestrado/Live_IQA_release2'
+        images_path = '/content/drive/My Drive/Mestrado/Live_IQA_release2_super_resolution'
         return [
             tfds.core.SplitGenerator(
                 name=tfds.Split.TRAIN,
