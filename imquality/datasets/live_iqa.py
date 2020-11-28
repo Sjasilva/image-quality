@@ -102,8 +102,8 @@ class LiveIQA(tfds.core.GeneratorBasedBuilder):
             yield image_id, {
                 "distortion": values[0],
                 "index": values[1],
-                "distorted_image": os.path.join(images_path, values[2]),
-                "reference_image": os.path.join(images_path + '/refimgs', values[3]),
+                "distorted_image": os.path.join(images_path, values[2]).replace('.bmp', '.jpg'),
+                "reference_image": os.path.join(images_path + '/refimgs', values[3]).replace('.bmp', '.jpg'),
                 "dmos": values[8],
                 "dmos_realigned": values[5],
                 "dmos_realigned_std": values[6],
