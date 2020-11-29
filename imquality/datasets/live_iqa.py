@@ -81,7 +81,7 @@ class LiveIQA(tfds.core.GeneratorBasedBuilder):
         # live_url = "https://data.ocampor.ai/image-quality/live.zip"
         # extracted_path = manager.download_and_extract([live_url])
         # images_path = os.path.join(extracted_path[0], "live")
-        images_path = '/content/drive/My Drive/Mestrado/Live_IQA_release2_super_resolution'
+        images_path = '/content/drive/My Drive/Mestrado/Live_IQA_release2'
         return [
             tfds.core.SplitGenerator(
                 name=tfds.Split.TRAIN,
@@ -102,8 +102,8 @@ class LiveIQA(tfds.core.GeneratorBasedBuilder):
             yield image_id, {
                 "distortion": values[0],
                 "index": values[1],
-                "distorted_image": os.path.join(images_path, values[2]).replace('.bmp', '.jpg'),
-                "reference_image": os.path.join(images_path + '/refimgs', values[3]).replace('.bmp', '.jpg'),
+                "distorted_image": os.path.join(images_path, values[2]),
+                "reference_image": os.path.join(images_path + '/refimgs', values[3]),
                 "dmos": values[8],
                 "dmos_realigned": values[5],
                 "dmos_realigned_std": values[6],
